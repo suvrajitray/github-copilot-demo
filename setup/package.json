@@ -1,0 +1,13 @@
+{
+  "name": "firebase-import",
+  "version": "1.0.0",
+  "description": "Import cricket player data into Firebase Firestore",
+  "main": "importPlayers.js",
+  "scripts": {
+    "start": "node importPlayers.js"
+  },
+  "dependencies": {
+    "firebase-admin": "^11.10.1",
+    "fs": "0.0.1-security"
+  }
+}
