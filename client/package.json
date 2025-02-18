@@ -1,9 +1,10 @@
 {
-  "name": "cricplayerinfo",
+  "name": "cric-profile-hub",
   "private": true,
   "version": "0.0.0",
   "type": "module",
   "scripts": {
+    "start": "vite --port 5001",
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
@@ -12,10 +13,7 @@
   "dependencies": {
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "react-router-dom": "^7.1.5",
-    "cors": "^2.8.5",
-    "express": "^4.17.1",
-    "firebase-admin": "^10.0.0"
+    "react-router-dom": "^7.1.5"
   },
   "devDependencies": {
     "@eslint/js": "^9.19.0",

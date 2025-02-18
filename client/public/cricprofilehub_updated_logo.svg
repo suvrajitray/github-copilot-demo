@@ -1,0 +1,19 @@
+<svg width="200" height="200" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" fill="none">
+  <!-- Background Circle -->
+  <circle cx="100" cy="100" r="90" fill="#0073e6" stroke="#004a99" stroke-width="6" />
+
+  <!-- Stumps -->
+  <rect x="85" y="50" width="5" height="80" fill="#fff" stroke="#633d1a" stroke-width="1" />
+  <rect x="95" y="50" width="5" height="80" fill="#fff" stroke="#633d1a" stroke-width="1" />
+  <rect x="105" y="50" width="5" height="80" fill="#fff" stroke="#633d1a" stroke-width="1" />
+  
+  <!-- Flying Bails -->
+  <rect x="82" y="45" width="12" height="4" fill="#fff" transform="rotate(-20, 82, 45)" stroke="#633d1a" stroke-width="1" />
+  <rect x="102" y="45" width="12" height="4" fill="#fff" transform="rotate(20, 102, 45)" stroke="#633d1a" stroke-width="1" />
+
+  <!-- Cricket Ball -->
+  <circle cx="130" cy="75" r="12" fill="#d92323" stroke="#a11616" stroke-width="3" />
+
+  <!-- Text -->
+  <text x="45" y="150" font-family="Arial, sans-serif" font-size="15" fill="yellow" font-weight="bold">Cric Profile Hub</text>
+</svg>

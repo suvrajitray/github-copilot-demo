@@ -22,5 +22,5 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
-setup/serviceAccountKey.json
 .DS_Store
+server/serviceAccountKey.json

@@ -2,6 +2,7 @@ import React from "react"
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom"
 import { Home, Header, Footer } from "./components"
 import "./index.css"
+import { PlayerInfo } from "./components"
 
 const App: React.FC = () => {
   return (
@@ -11,6 +12,10 @@ const App: React.FC = () => {
         <Route
           path="/"
           element={<Home />}
+        />
+        <Route
+          path="/player-info/:id"
+          element={<PlayerInfo />}
         />
       </Routes>
       <Footer />

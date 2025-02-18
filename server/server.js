@@ -6,7 +6,7 @@ const serviceAccount = require("./serviceAccountKey.json")
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
-  databaseURL: "https://your-firebase-project.firebaseio.com"
+  databaseURL: "https://github-copilot-demo-fb.firebaseio.com"
 })
 
 const db = admin.firestore()
@@ -24,8 +24,6 @@ app.get("/api/players", async (req, res) => {
     res.status(500).json({ error: "Failed to fetch players" })
   }
 })
-
-app.post("/api/players", async (req, res) => {})
 
 const PORT = process.env.PORT || 5000
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`))
