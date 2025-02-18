@@ -14,7 +14,7 @@ const App: React.FC = () => {
           element={<Home />}
         />
         <Route
-          path="/player-info/:id"
+          path="/player/:playerId"
           element={<PlayerInfo />}
         />
       </Routes>

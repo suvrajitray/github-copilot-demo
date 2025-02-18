@@ -17,7 +17,7 @@ export const Home: React.FC = () => {
       {players.map((player) => (
         <div
           key={player.id}
-          onClick={() => navigate(`/player-info/${player.id}`)}
+          onClick={() => navigate(`/player/${player.id}`)}
         >
           <PlayerCard
             key={player.id}
