@@ -1,25 +1,91 @@
-import React, { useState, useEffect } from "react"
+import { useState, useEffect } from "react"
 import { useParams } from "react-router-dom"
 import playerData from "./player-summary.json"
+import { OppositionBarChart } from "./OppositionBarChart"
+
+interface PlayerInfo {
+  id: number
+  name: string
+  fullName: string
+  born: string
+  age: string
+  battingStyle: string
+  bowlingStyle: string
+  playingRole: string
+  image: string
+  info: Array<{
+    summary: {
+      recordClassId: number
+      type: string
+      groups: Array<{
+        type: string
+        stats: Array<{
+          tt: string
+          sp: string | null
+          mt: number
+          in: number
+          pr: string | null
+          rn: number
+          fo: number
+          si: number
+          ft: number
+          hn: number
+          bf: number
+          dk: number
+          no: number
+          hs: string
+          bta: number
+          btsr: number
+        }>
+      }>
+    }
+  }>
+}
+
+interface PlayerSummary {
+  recordClassId: number
+  type: string
+  groups: Array<{
+    type: string
+    stats: Array<{
+      tt: string
+      sp: string | null
+      mt: number
+      in: number
+      pr: string | null
+      rn: number
+      fo: number
+      si: number
+      ft: number
+      hn: number
+      bf: number
+      dk: number
+      no: number
+      hs: string
+      bta: number
+      btsr: number
+    }>
+  }>
+}
 
 export const PlayerInfo = () => {
-  const [playerSummary, setPlayerSummary] = useState(null)
-  const [player, setPlayer] = useState({})
+  const [playerSummary, setPlayerSummary] = useState<PlayerSummary | null>(null)
+  const [player, setPlayer] = useState<PlayerInfo | null>(null)
   const [matchType, setMatchType] = useState(2)
   const { playerId } = useParams()
 
   useEffect(() => {
-    const player = playerData.find(
+    const foundPlayer = playerData.find(
       (p) => p.id.toString() === playerId?.toString()
-    )
-    setPlayer(player)
-    const selectedPlayerSummary = player.info.find(
+    ) as PlayerInfo
+    setPlayer(foundPlayer)
+    const selectedPlayerSummary = foundPlayer?.info.find(
       (p) => p.summary.recordClassId === matchType
     )
     setPlayerSummary(selectedPlayerSummary?.summary || null)
   }, [matchType, playerId])
 
-  if (!playerSummary) {
+  if (!playerSummary || !player) {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
@@ -29,13 +95,17 @@ export const PlayerInfo = () => {
 
   const careerStats = playerSummary.groups.find(
     (group) => group.type === "CAREER_AVERAGES"
-  ).stats[0]
-  const oppositionStats = playerSummary.groups.find(
-    (group) => group.type === "OPPOSITION_TEAM"
-  ).stats
-  const countryStats = playerSummary.groups.find(
-    (group) => group.type === "HOST_COUNTRY"
-  ).stats
+  )?.stats[0]
+  const oppositionStats =
+    playerSummary.groups.find((group) => group.type === "OPPOSITION_TEAM")
+      ?.stats || []
+  const countryStats =
+    playerSummary.groups.find((group) => group.type === "HOST_COUNTRY")
+      ?.stats || []
+
+  if (!careerStats) {
+    return null
+  }
 
   return (
     <div className="container mx-auto px-4 py-8">
@@ -109,7 +179,7 @@ export const PlayerInfo = () => {
                     key={index}
                     className="px-4 py-3 text-sm text-gray-900 dark:text-gray-300 border-t dark:border-gray-700"
                   >
-                    {value}
+                    {String(value)}
                   </td>
                 ))}
               </tr>
@@ -118,7 +188,6 @@ export const PlayerInfo = () => {
         </div>
       </div>
 
-      {/* Opposition Stats Section */}
       <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 mb-8">
         <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
           Performance by Opposition
@@ -127,7 +196,7 @@ export const PlayerInfo = () => {
           <table className="w-full">
             <thead className="bg-gray-50 dark:bg-gray-700">
               <tr>
-                {Object.keys(oppositionStats[0]).map((key) => (
+                {Object.keys(oppositionStats[0] || {}).map((key) => (
                   <th
                     key={key}
                     className="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider"
@@ -145,17 +214,17 @@ export const PlayerInfo = () => {
                       key={i}
                       className="px-4 py-3 text-sm text-gray-900 dark:text-gray-300 border-t dark:border-gray-700"
                     >
-                      {value}
+                      {String(value)}
                     </td>
                   ))}
                 </tr>
               ))}
             </tbody>
           </table>
+          <OppositionBarChart stats={oppositionStats} />
         </div>
       </div>
 
-      {/* Country Stats Section */}
       <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6">
         <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
           Performance by Host Country
@@ -164,7 +233,7 @@ export const PlayerInfo = () => {
           <table className="w-full">
             <thead className="bg-gray-50 dark:bg-gray-700">
               <tr>
-                {Object.keys(countryStats[0]).map((key) => (
+                {Object.keys(countryStats[0] || {}).map((key) => (
                   <th
                     key={key}
                     className="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider"
@@ -182,7 +251,7 @@ export const PlayerInfo = () => {
                       key={i}
                       className="px-4 py-3 text-sm text-gray-900 dark:text-gray-300 border-t dark:border-gray-700"
                     >
-                      {value}
+                      {String(value)}
                     </td>
                   ))}
                 </tr>
