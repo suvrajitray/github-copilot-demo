@@ -4,7 +4,7 @@
 
 This is a **full-stack web application** built using:
 
-- **Frontend**: React (with Hooks, Context API/Redux, TypeScript), <!-- styled with TailwindCSS. -->
+- **Frontend**: React (with Hooks, Context API/Redux, TypeScript), styled with TailwindCSS.
 - **Backend**: Node.js with Express.js and a database (Firebase).
 - **Development Tools**: ESLint, Prettier, Jasmine for unit testing.
 - **Style Guide**: **Follow Airbnb JavaScript & React Style Guide**.
