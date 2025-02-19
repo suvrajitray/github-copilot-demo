@@ -7,76 +7,10 @@
   color-scheme: light dark;
 }
 
-/* Enable smooth scrolling */
 html {
   scroll-behavior: smooth;
 }
 
-/* Ensure proper table display on mobile */
 .overflow-x-auto {
   -webkit-overflow-scrolling: touch;
-}
-
-body {
-  font-family: Arial, sans-serif;
-  margin: 0;
-  padding: 0;
-  background-color: #f4f4f4;
-}
-
-header {
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  background-color: #003366;
-  color: white;
-  padding: 15px;
-  text-align: center;
-  font-size: 24px;
-}
-
-footer {
-  background-color: #003366;
-  color: white;
-  text-align: center;
-  padding: 10px;
-  position: fixed;
-  bottom: 0;
-  width: 100%;
-}
-
-.player-list {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 20px;
-  padding: 20px;
-  margin-bottom: 70px;
-}
-
-.player-card {
-  background: white;
-  padding: 15px;
-  border-radius: 8px;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-  text-align: center;
-}
-
-.player-card img {
-  max-width: 100px;
-  border-radius: 50%;
-  margin-bottom: 10px;
-}
-
-.player-card h2 {
-  font-size: 20px;
-  margin: 10px 0;
-}
-
-.player-card p {
-  margin: 5px 0;
-  font-size: 14px;
-}
-
-strong {
-  color: #003366;
 }

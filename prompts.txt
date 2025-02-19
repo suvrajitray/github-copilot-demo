@@ -1,0 +1,9 @@
+02-styling
+----------------------------------------------------------------------
+
+1. Create a responsive full-width UI enhancement using TailwindCSS. Ensure that the design is modern, clean.
+2. Use a grid or flexbox-based approach to organize content efficiently.
+3. Incorporate rounded corners, soft shadows, and proper spacing for a sleek look. Optimize typography for readability and ensure interactive elements (buttons, links) have hover and active states.
+4. Use dark and light mode support if applicable.
+
+5.Create a icon to choose light and dark mode.
