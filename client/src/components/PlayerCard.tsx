@@ -20,8 +20,13 @@ export const PlayerCard: React.FC<PlayerCardProps> = ({ player }) => {
   return (
     <div className="player-card">
       <img
+        height="100px"
         src={player.image}
-        alt={player.name}
+        // alt={player.name}
+        onError={(event) => {
+          event.target.src = "/profile.png"
+          event.onerror = null
+        }}
       />
       <h2>{player.fullName}</h2>
       <p>
