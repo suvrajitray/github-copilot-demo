@@ -4,11 +4,12 @@ import playerData from "./player-summary.json"
 
 export const PlayerInfo = () => {
   const [playerSummary, setPlayerSummary] = useState(null)
-  const [player, setPlayer] = useState(null)
+  const [player, setPlayer] = useState({})
   const [matchType, setMatchType] = useState(2) // Default to ODI
   const { playerId } = useParams()
 
   useEffect(() => {
+    console.log(playerId)
     const player = playerData.find(
       (p) => p.id.toString() === playerId?.toString()
     )
@@ -18,7 +19,7 @@ export const PlayerInfo = () => {
       (p) => p.summary.recordClassId === matchType
     )
     setPlayerSummary(selectedPlayerSummary?.summary || null)
-  }, [matchType])
+  }, [matchType, playerId])
 
   if (!playerSummary) return <div>Loading...</div>
 
@@ -36,29 +37,29 @@ export const PlayerInfo = () => {
     <div className="container mx-auto p-4">
       <div className="flex items-center space-x-4">
         <img
-          src="https://img1.hscicdn.com/image/upload/f_auto,t_ds_square_w_320,q_50/lsci/db/PICTURES/CMS/316600/316605.3.png"
-          alt="Virat Kohli"
+          src={player.image}
+          alt={player.name}
           className="w-32 h-32 rounded-full"
         />
         <div>
-          <h1 className="text-3xl font-bold">Virat Kohli</h1>
+          <h1 className="text-3xl font-bold">{player.name}</h1>
           <p>
             <strong>Full Name:</strong> {}
           </p>
           <p>
-            <strong>Born:</strong> November 5, 1988, Delhi, India
+            <strong>Born:</strong> {player.born}
           </p>
           <p>
-            <strong>Age:</strong> 36y 105d
+            <strong>Age:</strong> {player.age}
           </p>
           <p>
-            <strong>Batting Style:</strong> Right hand Bat
+            <strong>Batting Style:</strong> {player.battingStyle}
           </p>
           <p>
-            <strong>Bowling Style:</strong> Right arm Medium
+            <strong>Bowling Style:</strong> {player.bowlingStyle}
           </p>
           <p>
-            <strong>Playing Role:</strong> Top order Batter
+            <strong>Playing Role:</strong> {player.playingRole}
           </p>
         </div>
       </div>

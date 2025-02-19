@@ -19,7 +19,7 @@ app.get("/api/players", async (req, res) => {
     const playersRef = db.collection("players")
     const snapshot = await playersRef.get()
     const players = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }))
-    res.json(players)
+    res.json(players.sort((a, b) => a.id - b.id))
   } catch (error) {
     res.status(500).json({ error: "Failed to fetch players" })
   }
