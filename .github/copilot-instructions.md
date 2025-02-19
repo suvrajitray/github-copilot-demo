@@ -6,7 +6,7 @@ This is a **full-stack web application** built using:
 
 - **Frontend**: React (with Hooks, Context API/Redux, TypeScript), styled with TailwindCSS.
 - **Backend**: Node.js with Express.js and a database (Firebase).
-- **Development Tools**: ESLint, Prettier, Jasmine for unit testing.
+- **Development Tools**: ESLint, Prettier, Jest for unit testing.
 - **Style Guide**: **Follow Airbnb JavaScript & React Style Guide**.
 
 ---
@@ -20,23 +20,18 @@ This is a **full-stack web application** built using:
 ✅ Use **async/await** for handling asynchronous operations.
 ✅ Enforce **single responsibility principle** for functions and components.
 ✅ Follow **RESTful API** design patterns in backend development.
-✅ Write **unit and integration tests using Jasmine** instead of Jest.
+✅ Write **unit and integration tests using Jest ** instead of Jasmine.
 
 ---
 
-## Unit Testing with Jasmine
+## Unit Testing with Jest
 
-- **Use Jasmine for unit testing** (`npm install --save-dev jasmine`).
+- **Use Jest for unit testing** (`npm install --save-dev Jest`).
 - Test **React components, hooks, and API endpoints**.
 - Place test files in the **`__tests__` directory** or use `.spec.js`/`.spec.ts` naming convention.
 - Use **spyOn** to mock function calls.
 - Always use **describe, it, beforeEach, and expect** for structuring tests.
 - Ensure **100% test coverage for critical business logic**.
-
-```bash
-# Initialize Jasmine
-npx jasmine init
-```
 
 ## AI-Assisted Code Generation Guidelines
 
@@ -51,7 +46,7 @@ npx jasmine init
   - Lazy loading
   - Code splitting
   - Efficient state management
-- Generate **unit tests using Jasmine**, following the given project structure.
+- Generate **unit tests using Jest**, following the given project structure.
 - Use **TypeScript types and interfaces** when applicable.
 - Prioritize **security best practices**, such as:
   - Avoiding hardcoded secrets
@@ -66,7 +61,7 @@ npx jasmine init
 - Ignoring existing project structures, folder conventions, or architectural patterns.
 - Suggesting deprecated or outdated methods.
 - Producing large, monolithic components instead of breaking them into smaller, reusable parts.
-- Writing tests with Jest instead of the required **Jasmine** framework.
+- Writing tests with Jasmine instead of the required **Jest** framework.
 
 ---
 
