@@ -16,4 +16,7 @@
 
 ####################################################################################################
 
-
+Final
+-----
+1. In the player summary page where we are showing Performance by Opposition, after the table add a bar chat which will show opposion country in x axis and run in y axis
+2. Create a new component for this.
