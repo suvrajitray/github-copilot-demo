@@ -1,3 +1,22 @@
+@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light dark;
+}
+
+/* Enable smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Ensure proper table display on mobile */
+.overflow-x-auto {
+  -webkit-overflow-scrolling: touch;
+}
+
 body {
   font-family: Arial, sans-serif;
   margin: 0;

@@ -7,18 +7,22 @@ import { PlayerInfo } from "./components"
 const App: React.FC = () => {
   return (
     <Router>
-      <Header />
-      <Routes>
-        <Route
-          path="/"
-          element={<Home />}
-        />
-        <Route
-          path="/player/:playerId"
-          element={<PlayerInfo />}
-        />
-      </Routes>
-      <Footer />
+      <div className="min-h-screen flex flex-col bg-gray-50 dark:bg-gray-900">
+        <Header />
+        <main className="flex-grow">
+          <Routes>
+            <Route
+              path="/"
+              element={<Home />}
+            />
+            <Route
+              path="/player/:playerId"
+              element={<PlayerInfo />}
+            />
+          </Routes>
+        </main>
+        <Footer />
+      </div>
     </Router>
   )
 }

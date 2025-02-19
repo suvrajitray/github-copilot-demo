@@ -5,23 +5,27 @@ import playerData from "./player-summary.json"
 export const PlayerInfo = () => {
   const [playerSummary, setPlayerSummary] = useState(null)
   const [player, setPlayer] = useState({})
-  const [matchType, setMatchType] = useState(2) // Default to ODI
+  const [matchType, setMatchType] = useState(2)
   const { playerId } = useParams()
 
   useEffect(() => {
-    console.log(playerId)
     const player = playerData.find(
       (p) => p.id.toString() === playerId?.toString()
     )
     setPlayer(player)
-    // Filter player data based on match type
     const selectedPlayerSummary = player.info.find(
       (p) => p.summary.recordClassId === matchType
     )
     setPlayerSummary(selectedPlayerSummary?.summary || null)
   }, [matchType, playerId])
 
-  if (!playerSummary) return <div>Loading...</div>
+  if (!playerSummary) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
+      </div>
+    )
+  }
 
   const careerStats = playerSummary.groups.find(
     (group) => group.type === "CAREER_AVERAGES"
@@ -34,180 +38,159 @@ export const PlayerInfo = () => {
   ).stats
 
   return (
-    <div className="container mx-auto p-4">
-      <div className="flex items-center space-x-4">
-        <img
-          src={player.image}
-          alt={player.name}
-          className="w-32 h-32 rounded-full"
-        />
-        <div>
-          <h1 className="text-3xl font-bold">{player.name}</h1>
-          <p>
-            <strong>Full Name:</strong> {}
-          </p>
-          <p>
-            <strong>Born:</strong> {player.born}
-          </p>
-          <p>
-            <strong>Age:</strong> {player.age}
-          </p>
-          <p>
-            <strong>Batting Style:</strong> {player.battingStyle}
-          </p>
-          <p>
-            <strong>Bowling Style:</strong> {player.bowlingStyle}
-          </p>
-          <p>
-            <strong>Playing Role:</strong> {player.playingRole}
-          </p>
+    <div className="container mx-auto px-4 py-8">
+      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 mb-8">
+        <div className="flex flex-col md:flex-row md:items-center gap-6">
+          <img
+            src={player.image}
+            alt={player.name}
+            className="w-32 h-32 md:w-40 md:h-40 rounded-full object-cover shadow-lg mx-auto md:mx-0"
+          />
+          <div className="flex-1 space-y-3">
+            <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
+              {player.name}
+            </h1>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-gray-600 dark:text-gray-300">
+              <p>
+                <span className="font-medium">Born:</span> {player.born}
+              </p>
+              <p>
+                <span className="font-medium">Age:</span> {player.age}
+              </p>
+              <p>
+                <span className="font-medium">Batting:</span>{" "}
+                {player.battingStyle}
+              </p>
+              <p>
+                <span className="font-medium">Bowling:</span>{" "}
+                {player.bowlingStyle}
+              </p>
+              <p>
+                <span className="font-medium">Role:</span> {player.playingRole}
+              </p>
+            </div>
+          </div>
         </div>
       </div>
-      <h1 className="text-3xl font-bold">Player Info - {careerStats.tt}</h1>
-      <label className="block mt-4">
-        <span className="text-gray-700">Select Match Type:</span>
-        <select
-          className="block w-full mt-2 p-2 border"
-          value={matchType}
-          onChange={(e) => setMatchType(Number(e.target.value))}
-        >
-          <option value={2}>ODI</option>
-          <option value={1}>Test</option>
-        </select>
-      </label>
-      <h2 className="text-xl mt-2">Career Stats</h2>
-      <table className="w-full border-collapse border border-gray-300">
-        <thead>
-          <tr>
-            <th className="border p-2">Span</th>
-            <th className="border p-2">Matches</th>
-            <th className="border p-2">Innings</th>
-            <th className="border p-2">NO</th>
-            <th className="border p-2">Runs</th>
-            <th className="border p-2">BF</th>
-            <th className="border p-2">Highest Score</th>
-            <th className="border p-2">Avg</th>
-            <th className="border p-2">Strike Rate</th>
-            <th className="border p-2">100s</th>
-            <th className="border p-2">50s</th>
-            <th className="border p-2">0s</th>
-            <th className="border p-2">4s</th>
-            <th className="border p-2">6s</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td className="border p-2">{careerStats.sp}</td>
-            <td className="border p-2">{careerStats.mt}</td>
-            <td className="border p-2">{careerStats.in}</td>
-            <td className="border p-2">{careerStats.no}</td>
-            <td className="border p-2">
-              <b>{careerStats.rn}</b>
-            </td>
-            <td className="border p-2">{careerStats.hs}</td>
-            <td className="border p-2">{careerStats.bf}</td>
-            <td className="border p-2">{careerStats.bta}</td>
-            <td className="border p-2">{careerStats.btsr}</td>
-            <td className="border p-2">{careerStats.hn}</td>
-            <td className="border p-2">{careerStats.ft}</td>
-            <td className="border p-2">{careerStats.dk}</td>
-            <td className="border p-2">{careerStats.fo}</td>
-            <td className="border p-2">{careerStats.si}</td>
-          </tr>
-        </tbody>
-      </table>
 
-      <h2 className="text-xl mt-4">Performance by Opposition</h2>
-      <table className="w-full border-collapse border border-gray-300">
-        <thead>
-          <tr>
-            <th className="border p-2">Opponent</th>
-            <th className="border p-2">Span</th>
-            <th className="border p-2">Matches</th>
-            <th className="border p-2">Innings</th>
-            <th className="border p-2">NO</th>
-            <th className="border p-2">Runs</th>
-            <th className="border p-2">BF</th>
-            <th className="border p-2">Highest Score</th>
-            <th className="border p-2">Avg</th>
-            <th className="border p-2">Strike Rate</th>
-            <th className="border p-2">100s</th>
-            <th className="border p-2">50s</th>
-            <th className="border p-2">0s</th>
-            <th className="border p-2">4s</th>
-            <th className="border p-2">6s</th>
-          </tr>
-        </thead>
-        <tbody>
-          {oppositionStats.map((op, index) => (
-            <tr key={index}>
-              <td className="border p-2">{op.tt}</td>
-              <td className="border p-2">{op.sp}</td>
-              <td className="border p-2">{op.mt}</td>
-              <td className="border p-2">{op.in}</td>
-              <td className="border p-2">{op.no}</td>
-              <td className="border p-2">
-                <b>{op.rn}</b>
-              </td>
-              <td className="border p-2">{op.hs}</td>
-              <td className="border p-2">{op.bf}</td>
-              <td className="border p-2">{op.bta}</td>
-              <td className="border p-2">{op.btsr}</td>
-              <td className="border p-2">{op.hn}</td>
-              <td className="border p-2">{op.ft}</td>
-              <td className="border p-2">{op.dk}</td>
-              <td className="border p-2">{op.fo}</td>
-              <td className="border p-2">{op.si}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 mb-8">
+        <div className="flex flex-col sm:flex-row justify-between items-center mb-6">
+          <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4 sm:mb-0">
+            {careerStats.tt} Career Statistics
+          </h2>
+          <select
+            className="px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500"
+            value={matchType}
+            onChange={(e) => setMatchType(Number(e.target.value))}
+          >
+            <option value={2}>ODI</option>
+            <option value={1}>Test</option>
+          </select>
+        </div>
 
-      <h2 className="text-xl mt-4">Performance by Host Country</h2>
-      <table className="w-full border-collapse border border-gray-300">
-        <thead>
-          <tr>
-            <th className="border p-2">Country</th>
-            <th className="border p-2">Span</th>
-            <th className="border p-2">Matches</th>
-            <th className="border p-2">Innings</th>
-            <th className="border p-2">NO</th>
-            <th className="border p-2">Runs</th>
-            <th className="border p-2">BF</th>
-            <th className="border p-2">Highest Score</th>
-            <th className="border p-2">Avg</th>
-            <th className="border p-2">Strike Rate</th>
-            <th className="border p-2">100s</th>
-            <th className="border p-2">50s</th>
-            <th className="border p-2">0s</th>
-            <th className="border p-2">4s</th>
-            <th className="border p-2">6s</th>
-          </tr>
-        </thead>
-        <tbody>
-          {countryStats.map((host, index) => (
-            <tr key={index}>
-              <td className="border p-2">{host.tt}</td>
-              <td className="border p-2">{host.sp}</td>
-              <td className="border p-2">{host.mt}</td>
-              <td className="border p-2">{host.in}</td>
-              <td className="border p-2">{host.no}</td>
-              <td className="border p-2">
-                <b>{host.rn}</b>
-              </td>
-              <td className="border p-2">{host.hs}</td>
-              <td className="border p-2">{host.bf}</td>
-              <td className="border p-2">{host.bta}</td>
-              <td className="border p-2">{host.btsr}</td>
-              <td className="border p-2">{host.hn}</td>
-              <td className="border p-2">{host.ft}</td>
-              <td className="border p-2">{host.dk}</td>
-              <td className="border p-2">{host.fo}</td>
-              <td className="border p-2">{host.si}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+        <div className="overflow-x-auto">
+          <table className="w-full">
+            <thead className="bg-gray-50 dark:bg-gray-700">
+              <tr>
+                {Object.keys(careerStats).map((key) => (
+                  <th
+                    key={key}
+                    className="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider"
+                  >
+                    {key}
+                  </th>
+                ))}
+              </tr>
+            </thead>
+            <tbody className="bg-white dark:bg-gray-800">
+              <tr>
+                {Object.values(careerStats).map((value, index) => (
+                  <td
+                    key={index}
+                    className="px-4 py-3 text-sm text-gray-900 dark:text-gray-300 border-t dark:border-gray-700"
+                  >
+                    {value}
+                  </td>
+                ))}
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      {/* Opposition Stats Section */}
+      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 mb-8">
+        <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
+          Performance by Opposition
+        </h2>
+        <div className="overflow-x-auto">
+          <table className="w-full">
+            <thead className="bg-gray-50 dark:bg-gray-700">
+              <tr>
+                {Object.keys(oppositionStats[0]).map((key) => (
+                  <th
+                    key={key}
+                    className="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider"
+                  >
+                    {key}
+                  </th>
+                ))}
+              </tr>
+            </thead>
+            <tbody className="bg-white dark:bg-gray-800">
+              {oppositionStats.map((stat, index) => (
+                <tr key={index}>
+                  {Object.values(stat).map((value, i) => (
+                    <td
+                      key={i}
+                      className="px-4 py-3 text-sm text-gray-900 dark:text-gray-300 border-t dark:border-gray-700"
+                    >
+                      {value}
+                    </td>
+                  ))}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      {/* Country Stats Section */}
+      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6">
+        <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
+          Performance by Host Country
+        </h2>
+        <div className="overflow-x-auto">
+          <table className="w-full">
+            <thead className="bg-gray-50 dark:bg-gray-700">
+              <tr>
+                {Object.keys(countryStats[0]).map((key) => (
+                  <th
+                    key={key}
+                    className="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider"
+                  >
+                    {key}
+                  </th>
+                ))}
+              </tr>
+            </thead>
+            <tbody className="bg-white dark:bg-gray-800">
+              {countryStats.map((stat, index) => (
+                <tr key={index}>
+                  {Object.values(stat).map((value, i) => (
+                    <td
+                      key={i}
+                      className="px-4 py-3 text-sm text-gray-900 dark:text-gray-300 border-t dark:border-gray-700"
+                    >
+                      {value}
+                    </td>
+                  ))}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
     </div>
   )
 }
